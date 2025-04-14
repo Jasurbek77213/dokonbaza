@@ -1,3 +1,10 @@
+git init
+git add .
+git commit -m "Telegram bot fayllarini qo'shish"
+git branch -M main
+git remote add origin https://github.com/Jasurbek77213/dokonbaza.git
+git push -u origin main
+
 from dotenv import load_dotenv
 load_dotenv()  # .env faylidan muhit o'zgaruvchilarini yuklaydi
 
