@@ -1,26 +1,18 @@
-git init
-git add .
-git commit -m "Telegram bot fayllarini qo'shish"
-git branch -M main
-git remote add origin https://github.com/Jasurbek77213/dokonbaza.git
-git push -u origin main
 
 from dotenv import load_dotenv
-load_dotenv()  # .env faylidan muhit o'zgaruvchilarini yuklaydi
+load_dotenv() 
 
 import logging
 import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, ConversationHandler, filters, ContextTypes
 
-# Enable logging
+
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Define conversation states
 SELECTING_ACTION, ADDING_PRODUCT, ADDING_QUANTITY, BUYING_PRODUCT, BUYING_QUANTITY = range(5)
 
-# Dictionary to store products and their quantities
 products = {}
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -175,16 +167,15 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
 def main() -> None:
     """Run the bot."""
-    # Get bot token from environment variable
+
     token = os.environ.get("TELEGRAM_TOKEN")
     if not token:
         logger.error("No TELEGRAM_TOKEN environment variable found!")
         return
 
-    # Create the Application
     application = Application.builder().token(token).build()
 
-    # Set up conversation handler
+
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler("start", start)],
         states={
@@ -209,7 +200,7 @@ def main() -> None:
 
     application.add_handler(conv_handler)
 
-    # Start the Bot
+
     application.run_polling()
 
 if __name__ == '__main__':
